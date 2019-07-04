@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 150px;
+			height: 150px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	var slient = {
+		show:function($elem){
+			$elem.trigger('show');
+			$elem.show();
+			$elem.trigger('shown');
+		},
+		hide:function($elem){
+			$elem.trigger('hide');
+			$elem.hide();
+			$elem.trigger('hidden');
+		}
+	}
+</script>
+<script>
+	$(function(){
+		$('button').eq(0).on('click',function(){
+			slient.show($('#box'),function(){
+				console.log('shown!!!')
+			},function(){
+				console.log('show!!!');
+			})
+		})
+		$('button').eq(1).on('click',function(){
+			slient.hide($('#box'),function(){
+				console.log('hidden!!!')
+			},function(){
+				console.log('hide!!!');
+			})
+		})
+		$('#box').on('show shown hide hidden',function(ev){
+			if(ev.type == 'show'){
+				console.log('show!!!')
+			}else if(ev.type == 'shown'){
+				console.log('shown!!!')
+			}else if(ev.type == 'hide'){
+				console.log('hide!!!')
+			}else if(ev.type == 'hidden'){
+				console.log('hidden')
+			}
+		})
+	});
+</script>
+</html>

@@ -8,7 +8,7 @@ body{
 	margin-right: auto;
 }
 
-/*清除浮动共通*/
+/*清除浮动共通开始*/
 .fl{
 	float: left;
 }
@@ -23,8 +23,10 @@ body{
 .clearfix{
 	zoom: 1;
 }
-/*清除浮动共通*/
+/*清除浮动共通结束*/
 
+
+/*a链接共通部分开始*/
 a{
 	color: #3c434a;
 	text-decoration: none;
@@ -36,7 +38,28 @@ a.link:hover{
 a.default{
 	color: #e3534c;
 }
+/*a链接共通部分结束*/
 
-a:hover i.rotate{
-	transform: rotate(90deg);
+
+/*动画共通部分开始*/
+.transition{
+	transition: all 0.5s;
 }
+/*动画共通部分结束*/
+
+
+/*下拉层共通部分开始*/
+.dropdown{
+	position: relative;
+}
+.dropdown-layer{
+	position: absolute;
+	display: none;
+}
+.dropdown-left{
+	left: 0;
+}
+.dropdown-right{
+	right: 0;
+}
+/*下拉层共通部分结束*/
