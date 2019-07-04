@@ -37,6 +37,9 @@
 	line-height: 30px;
 	background-color: #fff;
 }
+.dropdown-layer li:hover{
+	background-color: #f3f5f7;
+}
 /*顶部css结束*/
 
 .search{

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 150px;
+			height: 150px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	var slient = {
+
+		//用jQuery对象.trigger('自定义事件名',参数)来触发自定义的事件 。
+		//用$elem接收参数 等价于#box
+		show:function($elem){
+
+			//show之前监听事件
+			$elem.trigger('show');
+
+			//jQuery对象.show(时长,回调)。
+			$elem.show();
+
+			//show之后监听事件
+			$elem.trigger('shown');
+		},
+
+		//用$elem接收参数 等价于#box
+		hide:function($elem){
+
+			//hide之前监听事件
+			$elem.trigger('hide');
+
+			//jQuery对象.hide(时长,回调)。
+			$elem.hide();
+
+			//hide之前监听事件
+			$elem.trigger('hidden');
+		}
+	}
+</script>
+<script>
+	$(function(){
+		//绑定一个自定义事件
+		//jQuery对象.on('自定义事件名',function(event,参数){})。
+		$('#box').on('show shown hide hidden',function(ev){
+
+			//通过ev.type判断到底触发的是哪个事件
+			if(ev.type == 'show'){
+				console.log('show!!!')
+			}else if(ev.type == 'shown'){
+				console.log('shown!!!')
+			}else if(ev.type == 'hide'){
+				console.log('hide!!!')
+			}else if(ev.type == 'hidden'){
+				console.log('hidden')
+			}
+		});
+
+		$('button').eq(0).on('click',function(){
+
+			//调用show方法并传入#box作为参数
+			slient.show($('#box'));
+		});
+		$('button').eq(1).on('click',function(){
+
+			//调用hide方法并传入#box作为参数
+			slient.hide($('#box'));
+		});
+	});
+</script>
+</html>

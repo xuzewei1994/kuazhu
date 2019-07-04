@@ -25,22 +25,26 @@
 	var slient = {
 
 		//用$elem接收参数 等价于#box
-		show:function($elem,callback){
+		show:function($elem,callback,before){
+			//show执行前调用回调函数
+			before();
 
 			//jQuery对象.show(时长,回调)。
 			$elem.show();
 
-			//调用回调函数
+			//show执行后调用回调函数
 			callback();
 		},
 
 		//用$elem接收参数 等价于#box
-		hide:function($elem,callback){
+		hide:function($elem,callback,before){
+			//hide执行前调用回调函数
+			before();
 
 			//jQuery对象.hide(时长,回调)。
 			$elem.hide();
 
-			//调用回调函数
+			//hide执行后调用回调函数
 			callback();
 		}
 	}
@@ -52,16 +56,24 @@
 			//调用show方法并传入#box作为参数
 			slient.show($('#box'),function(){
 
-				//执行回调函数
+				//show执行后调用回调函数
 				console.log('shown!!!')
+			},function(){
+
+				//show执行前调用回调函数
+				console.log('show!!!')
 			});
 		});
 		$('button').eq(1).on('click',function(){
 			//调用hide方法并传入#box作为参数
 			slient.hide($('#box'),function(){
 
-				//执行回调函数
+				//hide执行后调用回调函数
 				console.log('hidden!!!')
+			},function(){
+
+				//hide执行前调用回调函数
+				console.log('hide!!!')
 			});
 		});
 	});
