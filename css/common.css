@@ -1,0 +1,42 @@
+body{
+	font-size: 15px;
+}
+
+.container{
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*清除浮动共通*/
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.clearfix:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.clearfix{
+	zoom: 1;
+}
+/*清除浮动共通*/
+
+a{
+	color: #3c434a;
+	text-decoration: none;
+}
+
+a.link:hover{
+	color: #e3534c;
+}
+a.default{
+	color: #e3534c;
+}
+
+a:hover i.rotate{
+	transform: rotate(90deg);
+}

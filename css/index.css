@@ -1,0 +1,39 @@
+.top{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #f0f2f5;
+}
+.top .top-left li{
+	margin-right: 20px;
+}
+.top .top-right  li{
+	margin-right: 20px;
+}
+.top .top-right  li  i.rotate{
+	transform: rotate(180deg);
+}
+.search{
+	width: 100%;
+	height: 150px;
+	background-color: pink;
+}
+
+.nav{
+	width: 100%;
+	height: 50px;
+	background-color: black;
+}
+
+.content{
+	width: 100%;
+	height: 400px;
+	background-color: yellow;
+}
+
+.floor{
+	width: 100%;
+	height: 200px;
+	background-color: red;
+}
+
