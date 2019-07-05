@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			/*display: none;*/
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	// 共通部分封装
+	function init($elem){
+		if($elem.is('hidden')){
+			$elem.data('status','hidden');
+		}else{
+			$elem.data('status','shown')
+		}
+	}
+	function show($elem,callback){
+		if($elem.data('status') == 'show') return;
+		if($elem.data('status') == 'shown') return;
+		$elem.trigger('show').data('status','show');
+		typeof callback == "function" && callback();
+	}
+	function hide($elem,callback){
+		if($elem.data('status') == 'hide') return;
+		if($elem.data('status') == 'hidden') return;
+		$elem.trigger('hide').data('status','hide');
+		typeof callback == "function" && callback();
+	}
+	js_init = function($elem){
+		//解决jQuery动画与css动画冲突问题
+		//初始化阶段清除css动画
+		$elem.removeClass('transition');
+	}
+	js_show = function($elem,mode){
+		show($elem,function(){
+			//传入不共通的事件
+			//这里的.会产生错误所以用[]代替
+			$elem.stop()[mode](function(){
+				$elem.trigger('shown').data('status','shown');
+			});
+		})
+	}
+	js_hide = function($elem,mode){
+		hide($elem,function(){
+			//传入不共通的事件
+			//这里的.会产生错误所以用[]代替
+			$elem.stop()[mode](function(){
+				$elem.trigger('hidden').data('status','hidden');
+			});
+		})
+	}
+	// 共通部分封装
+
+
+	var slient = {
+		init:function($elem){
+			init();
+		},
+		show:function($elem){
+			show($elem,function(){
+				$elem.show();
+				$elem.trigger('shown').data('status','shown');
+			});
+		},
+		hide:function($elem){
+			hide($elem,function(){
+				$elem.hide();
+				$elem.trigger('hidden').data('status','hidden');
+			});
+		}
+	}
+
+	var js = {
+		/*
+		//淡入淡出动画
+		fade:{
+			init:function($elem){
+				js_init($elem);
+			},
+			show:function($elem){
+				js_show($elem,"fadeIn");
+			},
+			hide:function($elem){
+				js_hide($elem,"fadeOut");
+			}
+		}
+		*/
+
+		//卷入卷出动画
+		slide:{
+			init:function($elem){
+				js_init($elem);
+			},
+			show:function($elem){
+				//传入参数执行卷入动画
+				js_show($elem,"slideDown");
+			},
+			hide:function($elem){
+				//传入参数执行卷出动画
+				js_hide($elem,"slideUp");
+			}
+		}
+	}
+</script>
+<script>
+	$(function(){
+		$('#box').on('show shown hide hidden',function(ev){
+			//event.type:现在的事件类型是什么?
+			console.log(ev.type);
+		});
+		/*
+		//淡入淡出执行动画
+		js.fade.init($('#box'))
+		$('button').eq(0).on('click',function(){
+			js.fade.show($('#box'),function(){
+				console.log('shown!!!')
+			},function(){
+				console.log('show!!!');
+			})
+		})
+		$('button').eq(1).on('click',function(){
+			js.fade.hide($('#box'),function(){
+				console.log('hidden!!!')
+			},function(){
+				console.log('hide!!!');
+			})
+		})
+		*/
+
+		//卷入卷出执行动画
+		js.slide.init($('#box'))
+		$('button').eq(0).on('click',function(){
+			js.slide.show($('#box'),function(){
+				console.log('shown!!!')
+			},function(){
+				console.log('show!!!');
+			})
+		})
+		$('button').eq(1).on('click',function(){
+			js.slide.hide($('#box'),function(){
+				console.log('hidden!!!')
+			},function(){
+				console.log('hide!!!');
+			})
+		})
+	});
+</script>
+</html>

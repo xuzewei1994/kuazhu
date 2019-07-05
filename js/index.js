@@ -1,3 +1,4 @@
+/*
 (function($){
 	var $dropdown = $('.dropdown');
 	//hover(鼠标移入时执行函数,鼠标移出时执行函数)
@@ -9,5 +10,17 @@
 	},function(){
 		var activeClass = $(this).data('active') + "-active";
 		$(this).removeClass(activeClass);
+	})
+})(jQuery);
+*/
+
+(function($){
+	var $dropdown = $('.dropdown');
+	$dropdown.dropdown({
+		js:true,
+		mode:'slide'
+	});
+	$dropdown.on('dropdown-show dropdown-shown dropdown-hide dropdown-hidden',function(ev){
+		console.log(ev.type);
 	})
 })(jQuery);
