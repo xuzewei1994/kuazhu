@@ -40,7 +40,8 @@
 		});
 
 		$('button').eq(0).on('click',function(){
-			$box.showHide('show');
+			//实现链式调用
+			$box.showHide('show').css('background','blue');
 		});
 		$('button').eq(1).on('click',function(){
 			$box.showHide('hide');

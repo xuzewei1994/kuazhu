@@ -22,7 +22,7 @@
 </body>
 <script src="js/jquery-1.12.4.js"></script>
 <script>
-	
+	/*共通函数封装开始*/
 	function init($elem){
 		if($elem.is('hidden')){
 			$elem.data('status','hidden');
@@ -30,38 +30,19 @@
 			$elem.data('status','shown')
 		}
 	}
-
 	function show($elem,callback){
 		if($elem.data('status') == 'show') return;
 		if($elem.data('status') == 'shown') return;
 		$elem.trigger('show').data('status','show');
 		typeof callback == "function" && callback();
 	}
-
 	function hide($elem,callback){
 		if($elem.data('status') == 'hide') return;
 		if($elem.data('status') == 'hidden') return;
 		$elem.trigger('hide').data('status','hide');
 		typeof callback == "function" && callback();
 	}
-
-	var slient = {
-		init:function($elem){
-			init();
-		},
-		show:function($elem){
-			show($elem,function(){
-				$elem.show();
-				$elem.trigger('shown').data('status','shown');
-			});
-		},
-		hide:function($elem){
-			hide($elem,function(){
-				$elem.hide();
-				$elem.trigger('hidden').data('status','hidden');
-			});
-		}
-	}
+	/*共通函数封装结束*/
 
 	//淡入淡出动画
 	var js = {

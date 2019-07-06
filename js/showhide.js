@@ -3,7 +3,8 @@
 		//$('选择器:hidden')：匹配所有不可见元素
 		if($elem.is(':hidden')){
 			$elem.data('status','hidden');
-			//如果元素是隐藏状态,则将元素水平方向所有值归0,为左右卷入卷出动画做准备
+			//如果元素是隐藏状态,则将元素水平方向所有值归0
+			//为左右卷入卷出动画做准备
 			typeof hiddenCallback == 'function' && hiddenCallback();
 		}else{
 			$elem.data('status','shown');

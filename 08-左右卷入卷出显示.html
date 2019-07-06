@@ -26,13 +26,16 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script>
 	// 共通部分封装
+	//传入hiddenCallback回调函数来判断元素是否为隐藏状态
 	function init($elem,hiddenCallback){
 		//检测jQuery对象中是否有匹配元素
 		//jQuery对象.is(选择器)
+		//如果为隐藏状态则接收回调函数
 		if($elem.is(':hidden')){
 			$elem.data('status','hidden');
 			//如果元素是隐藏状态，则将元素水平方向所有值归0，
-			//为左右卷入捐出动画做准备
+			//为左右卷入卷出动画做准备
+			//检测传入数据类型
 			typeof hiddenCallback == 'function' && hiddenCallback();
 		}else{
 			$elem.data('status','shown')
@@ -95,52 +98,26 @@
 	}
 
 	var js = {
-		/*
-		//淡入淡出动画
-		fade:{
-			init:function($elem){
-				js_init($elem);
-			},
-			show:function($elem){
-				js_show($elem,"fadeIn");
-			},
-			hide:function($elem){
-				js_hide($elem,"fadeOut");
-			}
-		}
-		*/
-
-		/*
-		//上下卷入卷出动画
-		slide:{
-			init:function($elem){
-				js_init($elem);
-			},
-			show:function($elem){
-				//传入参数执行卷入动画
-				js_show($elem,"slideDown");
-			},
-			hide:function($elem){
-				//传入参数执行卷出动画
-				js_hide($elem,"slideUp");
-			}
-		}
-		*/
 
 		//左右卷入卷出动画
 		slideLeftRight:{
 			init:function($elem){
 				$elem.removeClass('transition');
-				//1.记录元素水平方向所有值
+
+				//1.初始化阶段记录元素水平方向所有值
 				var styles = {
-					width:$elem.css('width'),
-					paddingLeft:$elem.css('paddingLeft'),
-					paddingRight:$elem.css('paddingRight'),
-					borderLeftWidth:$elem.css('borderLeftWidth'),
-					borderRightWidth:$elem.css('borderRightWidth'),
+					width:$elem.css('width'),//200px
+					paddingLeft:$elem.css('paddingLeft'),//20px
+					paddingRight:$elem.css('paddingRight'),//20px
+					borderLeftWidth:$elem.css('borderLeftWidth'),//20px
+					borderRightWidth:$elem.css('borderRightWidth'),//20px
 				}
+				//将获取到的元素的值存到data上
 				$elem.data('styles',styles);
-				//2.当隐藏状态时，水平方向所有值归0
+
+				//2.当隐藏状态时,水平方向所有值归0
+				//调用init方法来记录当前是显示状态还是隐藏状态
+				//如果为隐藏状态则执行回调函数
 				init($elem,function(){
 					$elem.css({
 						width:0,
@@ -152,15 +129,24 @@
 				})
 			},
 			show:function($elem){
-				$elem.show();
+				$elem.show();//display:block
 				show($elem,function(){
+					//通过data上存储的值来执行自定义动画
+					// console.log($elem.data('styles'))
+					// width: "200px", 
+					// paddingLeft: "20px", 
+					// paddingRight: "20px", 
+					// borderLeftWidth: "20px", 
+					// borderRightWidth: "20px"
 					$elem.stop().animate($elem.data('styles'),function(){
+						//动画执行之后显示状态信息
 						$elem.trigger('shown').data('status','shown');
 					})
 				})
 			},
 			hide:function($elem){
 				hide($elem,function(){
+					//传入一个对象让水平方向所有值归0
 					$elem.stop().animate({
 						width:0,
 						paddingLeft:0,
@@ -168,6 +154,7 @@
 						borderLeftWidth:0,
 						borderRightWidth:0
 					},function(){
+						//动画执行之后显示状态信息
 						$elem.trigger('hidden').data('status','hidden');
 					})
 				})
@@ -181,44 +168,8 @@
 			//event.type:现在的事件类型是什么?
 			console.log(ev.type);
 		});
-		/*
-		//淡入淡出执行动画
-		js.fade.init($('#box'))
-		$('button').eq(0).on('click',function(){
-			js.fade.show($('#box'),function(){
-				console.log('shown!!!')
-			},function(){
-				console.log('show!!!');
-			})
-		})
-		$('button').eq(1).on('click',function(){
-			js.fade.hide($('#box'),function(){
-				console.log('hidden!!!')
-			},function(){
-				console.log('hide!!!');
-			})
-		})
-		*/
-
-		/*
-		//卷入卷出执行动画
-		js.slide.init($('#box'))
-		$('button').eq(0).on('click',function(){
-			js.slide.show($('#box'),function(){
-				console.log('shown!!!')
-			},function(){
-				console.log('show!!!');
-			})
-		})
-		$('button').eq(1).on('click',function(){
-			js.slide.hide($('#box'),function(){
-				console.log('hidden!!!')
-			},function(){
-				console.log('hide!!!');
-			})
-		})
-		*/
 	
+		//左右卷入卷出执行动画
 		js.slideLeftRight.init($('#box'))
 		$('button').eq(0).on('click',function(){
 			js.slideLeftRight.show($('#box'))

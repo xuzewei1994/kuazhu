@@ -23,13 +23,13 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script>
 	var slient = {
-
 		//记录状态信息(#box)
 		init:function($elem){
-
 			//检测jQuery对象中是否有匹配元素
 			//jQuery对象.is(选择器)
-			if($elem.is('hidden')){
+			//判断到底是显示还是隐藏状态
+			//$('选择器:hidden')：匹配所有不可见元素
+			if($elem.is(':hidden')){
 				//jQuery对象.data([key],[value])
 				//当参数为两个时,为该jQuery对象对应的DOM中存储key-value键值对的数据
 				$elem.data('status','hidden');
@@ -76,9 +76,7 @@
 				console.log('hidden')
 			}
 		})
-
 		slient.init($('#box'))
-
 		$('button').eq(0).on('click',function(){
 			slient.show($('#box'),function(){
 				console.log('shown!!!')

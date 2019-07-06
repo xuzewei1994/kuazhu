@@ -23,7 +23,7 @@
 </body>
 <script src="js/jquery-1.12.4.js"></script>
 <script>
-	// 共通部分封装
+	/*共通函数封装开始*/
 	function init($elem){
 		if($elem.is('hidden')){
 			$elem.data('status','hidden');
@@ -66,29 +66,10 @@
 			});
 		})
 	}
-	// 共通部分封装
-
-
-	var slient = {
-		init:function($elem){
-			init();
-		},
-		show:function($elem){
-			show($elem,function(){
-				$elem.show();
-				$elem.trigger('shown').data('status','shown');
-			});
-		},
-		hide:function($elem){
-			hide($elem,function(){
-				$elem.hide();
-				$elem.trigger('hidden').data('status','hidden');
-			});
-		}
-	}
+	/*共通函数封装结束*/
 
 	var js = {
-		/*
+
 		//淡入淡出动画
 		fade:{
 			init:function($elem){
@@ -101,7 +82,7 @@
 				js_hide($elem,"fadeOut");
 			}
 		}
-		*/
+
 
 		//卷入卷出动画
 		slide:{
@@ -125,7 +106,7 @@
 			//event.type:现在的事件类型是什么?
 			console.log(ev.type);
 		});
-		/*
+
 		//淡入淡出执行动画
 		js.fade.init($('#box'))
 		$('button').eq(0).on('click',function(){
@@ -142,7 +123,7 @@
 				console.log('hide!!!');
 			})
 		})
-		*/
+
 
 		//卷入卷出执行动画
 		js.slide.init($('#box'))

@@ -4,7 +4,9 @@
 		this.$elem = $elem;
 		this.options = options;
 		this.$layer = this.$elem.find('.dropdown-layer');
-		this.activeClass = this.$elem.data('active') + "-active"
+		this.activeClass = this.$elem.data('active') + "-active";
+		//设置定时器
+		this.timer = 0;
 		//2.初始化
 		this.init();
 	}
@@ -21,11 +23,18 @@
 			this.$elem.hover($.proxy(this.show,this),$.proxy(this.hide,this));
 		},
 		show:function(){
-			this.$layer.showHide('show');
-			//显示时添加对应class
-			this.$elem.addClass(this.activeClass);
+			//处理用户快速划入划出触发事件
+			if(this.options.delay){
+				this.timer = setTimeout(function(){
+					this.$layer.showHide('show');
+					//显示时添加对应class
+					this.$elem.addClass(this.activeClass);
+				}.bind(this),this.options.delay);
+			}
 		},
 		hide:function(){
+			//清除定时器
+			clearTimeout(this.timer)
 			this.$layer.showHide('hide');
 			//隐藏时移除对应class
 			this.$elem.removeClass(this.activeClass);
@@ -35,7 +44,8 @@
 	//当不传参数时的默认配置信息
 	Dropdown.DEFAULTS = {
 		js:true,
-		mode:'slide'
+		mode:'slide',
+		delay:300
 	}
 
 	//封装dropdown插件

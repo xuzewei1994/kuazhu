@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 200px;
+			height: 200px;
+			padding: 20px;
+			border: 20px solid yellow;
+			background-color: red;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	/*共通函数开始*/
+	function init($elem,hiddenCallback){
+		//检测jQuery对象中是否有匹配元素
+		//jQuery对象.is(选择器)
+		if($elem.is(':hidden')){
+			$elem.data('status','hidden');
+			//如果元素是隐藏状态，则将元素水平方向所有值归0，
+			//为左右卷入卷出动画做准备
+			typeof hiddenCallback == 'function' && hiddenCallback();
+		}else{
+			$elem.data('status','shown')
+		}
+	}
+	function show($elem,callback){
+		if($elem.data('status') == 'show') return;
+		if($elem.data('status') == 'shown') return;
+		$elem.trigger('show').data('status','show');
+		typeof callback == "function" && callback();
+	}
+	function hide($elem,callback){
+		if($elem.data('status') == 'hide') return;
+		if($elem.data('status') == 'hidden') return;
+		$elem.trigger('hide').data('status','hide');
+		typeof callback == "function" && callback();
+	}
+	js_init = function($elem){
+		//解决jQuery动画与css动画冲突问题
+		//初始化阶段清除css动画
+		$elem.removeClass('transition');
+	}
+	js_show = function($elem,mode){
+		show($elem,function(){
+			//传入不共通的事件
+			//这里的.会产生错误所以用[]代替
+			$elem.stop()[mode](function(){
+				$elem.trigger('shown').data('status','shown');
+			});
+		})
+	}
+	js_hide = function($elem,mode){
+		hide($elem,function(){
+			//传入不共通的事件
+			//这里的.会产生错误所以用[]代替
+			$elem.stop()[mode](function(){
+				$elem.trigger('hidden').data('status','hidden');
+			});
+		})
+	}
+	//传入options对象
+	js_customInit = function($elem,options){
+		$elem.removeClass('transition');
+		//定义一个空对象
+		var styles = {}
+		//遍历options对象
+		//如果options上有opcity则style上也有
+		//如果options上没有opcity则style上也没有
+		for(var key in options){
+			//获取元素属性值
+			styles[key] = $elem.css(key);
+		}
+		//将获取到的数据存储在data上
+		$elem.data('styles',styles);
+		//2.当隐藏状态时，水平方向所有值归0
+		init($elem,function(){
+			$elem.css(options)
+		})
+	}
+	js_customShow = function($elem){
+		$elem.show();
+		show($elem,function(){
+			$elem.stop().animate($elem.data('styles'),function(){
+				$elem.trigger('shown').data('status','shown');
+			})
+		})
+	}
+	js_customHide = function($elem,options){
+		hide($elem,function(){
+			$elem.stop().animate(options,function(){
+				$elem.trigger('hidden').data('status','hidden');
+			})
+		})
+	}
+	/*共通函数结束*/
+
+
+	var js = {
+
+		//左右卷入卷出动画
+		slideLeftRight:{
+			init:function($elem){
+				js_customInit($elem,{
+					width:0,
+					paddingLeft:0,
+					paddingRight:0,
+					borderLeftWidth:0,
+					borderRightWidth:0
+				});
+			},
+			show:function($elem){
+				js_customShow($elem);
+			},
+			hide:function($elem){
+				js_customHide($elem,{
+					width:0,
+					paddingLeft:0,
+					paddingRight:0,
+					borderLeftWidth:0,
+					borderRightWidth:0
+				})
+			}
+		}
+		
+	
+		
+		//左右淡入淡出动画
+		fadeSlideLeftRight:{
+			init:function($elem){
+				js_customInit($elem,{
+					width:0,
+					paddingLeft:0,
+					paddingRight:0,
+					borderLeftWidth:0,
+					borderRightWidth:0,
+					opacity:0
+				});
+			},
+			show:function($elem){
+				js_customShow($elem);
+			},
+			hide:function($elem){
+				js_customHide($elem,{
+					width:0,
+					paddingLeft:0,
+					paddingRight:0,
+					borderLeftWidth:0,
+					borderRightWidth:0,
+					opacity:0
+				})
+			}
+		}
+		
+	}
+</script>
+<script>
+	$(function(){
+		$('#box').on('show shown hide hidden',function(ev){
+			//event.type:现在的事件类型是什么?
+			console.log(ev.type);
+		});
+	
+		
+		//左右卷入卷出执行动画
+		js.slideLeftRight.init($('#box'))
+		$('button').eq(0).on('click',function(){
+			js.slideLeftRight.show($('#box'))
+		})
+		$('button').eq(1).on('click',function(){
+			js.slideLeftRight.hide($('#box'))
+		})
+
+		
+		//左右淡入淡出执行动画
+		js.fadeSlideLeftRight.init($('#box'))
+		$('button').eq(0).on('click',function(){
+			js.fadeSlideLeftRight.show($('#box'))
+		})
+		$('button').eq(1).on('click',function(){
+			js.fadeSlideLeftRight.hide($('#box'))
+		})
+		
+	});
+</script>
+</html>
