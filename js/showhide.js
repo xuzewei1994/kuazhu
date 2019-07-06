@@ -169,14 +169,14 @@
 
 	//获取显示隐藏动画的方法
 	function getShowHide($elem,options){
+		/*默认情况执行slient*/
 		var showhideFn = slient;
+		/*如果使用js中的方法*/
 		if(options.js){
-			showhideFn = js[options.mode]
+			showhideFn = js[options.mode]//js.fade
 		}
-
-		//初始化
+		//初始化当前传入的DOM元素
 		showhideFn.init($elem);
-
 		//返回对应的显示隐藏方法
 		return {
 			show:showhideFn.show,
@@ -192,15 +192,22 @@
 
 	//封装showHide插件
 	$.fn.extend({
+		//接收showHide传入的参数
 		showHide:function(options){
 			//遍历元素,实现隐式迭代
 			//返回jQuery对象实现链式调用
 			return this.each(function(){//实现单例模式
+				/*获取DOM节点*/
 				var $elem = $(this);
+				/*获取动画的执行方法*/
+				/*将获取到的信息存储到data上*/
 				var showHideObj = $elem.data('showHideObj');
 				if(!showHideObj){
+				/* $.extend({},obj1, obj2);
+				合并 obj1 和 obj2,返回合并后的对象,不修改obj1*/
 					options = $.extend({},DEFAULTS,options);
 					showHideObj = getShowHide($elem,options);
+					/*存储到当前DOM节点*/
 					$elem.data('showHideObj',showHideObj);
 				}
 				//第二次进入该函数则是调用显示隐藏的动画方法
