@@ -67,6 +67,8 @@
 							<li><a href="javascript:;" class="dropdown-show">收藏的店铺</a></li>
 						</ul>
 					</li>
+
+					<!-- 用data存值的方式来存储将要加载的地址 -->
 					<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
 						<a href="javascript:;" class="link dropdown-toggle">
 							我的跨淘
@@ -91,17 +93,21 @@
 				<h1 class="fl">
 					<a href="#" class="header-logo"></a>
 				</h1>
-				<div class="search fl">
+				<div class="search fl clearfix">
+					<!-- 需要提交数据的地址 -->
+					<!-- "https://s.taobao.com/search" -->
 					<form action="https://s.taobao.com/search" class="search-form">
-						<input type="text" class="search-input fl" autocomplete="off" name="q">
+						<!-- 给输入框名字name="q"用来接收数据 -->
+						<input type="text" class="search-input fl" 
+						autocomplete="off" name="q">
 						<input type="submit" class="search-btn fl">
 					</form>
 					<ul class="search-layer">
+						<!-- <li>保温杯</li>
 						<li>保温杯</li>
 						<li>保温杯</li>
 						<li>保温杯</li>
-						<li>保温杯</li>
-						<li>保温杯</li>
+						<li>保温杯</li> -->
 					</ul>
 				</div>
 			</div>
@@ -174,7 +180,7 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/showhide.js"></script>
 <script src="js/dropdown.js"></script>
-<script src="js/search.js"></script>
+<script src="js/search1.js"></script>
 <script src="js/index.js"></script>
 
 </html>

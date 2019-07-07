@@ -30,6 +30,7 @@
 	}
 	.dropdown-layer{
 		white-space: nowrap;
+		z-index: 999;
 		/*border: 1px solid #f3f5f7;*/
 	}
 	.top .dropdown-layer li{
@@ -60,6 +61,7 @@
 		position: relative;
 		margin-top: 30px;
 		margin-left: 200px;
+		box-sizing: border-box;
 	}
 	.search .search-input{
 		width: 400px;
@@ -67,6 +69,7 @@
 		padding-left: 8px;
 		outline: none;
 		border: 1px solid #ccc;
+		box-sizing: border-box;
 	}
 	.search .search-btn{
 		width: 80px;
@@ -78,6 +81,7 @@
 		color: #fff;
 		background-color: #000;
 		cursor: pointer;
+		box-sizing: border-box;
 	}
 	.search-layer{
 		position: absolute;
