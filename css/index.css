@@ -1,54 +1,107 @@
 /*顶部css开始*/
-.top{
-	height: 50px;
-	background-color: #f3f5f7;
-}
-.top .top-left li{
-	height: 50px;
-	line-height: 50px;
-	margin-right: 10px;
-}
+	.top{
+		height: 50px;
+		background-color: #f3f5f7;
+	}
+	.top .top-left li{
+		height: 50px;
+		line-height: 50px;
+		margin-right: 10px;
+	}
 
-/*将a标签高度占据整个li的高度*/
-.top .dropdown-toggle{
-	display: block;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-}
-.top .dropdown{
-	margin-left: 15px;
-}
-.menu-active .dropdown-toggle{
-	background-color: #fff;
-}
-.menu-active .dropdown-layer{
-	display: block;
-}
-.menu-active .rotate{
-	transform: rotate(180deg);
-}
-.dropdown-layer{
-	white-space: nowrap;
-	/*border: 1px solid #f3f5f7;*/
-}
-.top .dropdown-layer li{
-	height: 30px;
-	padding: 0 5px;
-	line-height: 30px;
-	background-color: #fff;
-}
-.dropdown-layer li:hover{
-	background-color: #f3f5f7;
-}
+	/*将a标签高度占据整个li的高度*/
+	.top .dropdown-toggle{
+		display: block;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+	}
+	.top .dropdown{
+		margin-left: 15px;
+	}
+	.menu-active .dropdown-toggle{
+		background-color: #fff;
+	}
+	.menu-active .dropdown-layer{
+		display: block;
+	}
+	.menu-active .rotate{
+		transform: rotate(180deg);
+	}
+	.dropdown-layer{
+		white-space: nowrap;
+		/*border: 1px solid #f3f5f7;*/
+	}
+	.top .dropdown-layer li{
+		height: 30px;
+		padding: 0 5px;
+		line-height: 30px;
+		background-color: #fff;
+	}
+	.dropdown-layer li:hover{
+		background-color: #f3f5f7;
+	}
 /*顶部css结束*/
 
+/*头部搜索开始*/
+	.header{
+		height: 100px;
+		background-color: #fff;
+	}
+	.header-logo{
+		display: block;
+		width: 248px;
+		height: 70px;
+		margin-top: 15px;
+		background-image: url(../images/header-logo.png);
+		background-repeat: no-repeat;
+	}
+	.search{
+		position: relative;
+		margin-top: 30px;
+		margin-left: 200px;
+	}
+	.search .search-input{
+		width: 400px;
+		height: 40px;
+		padding-left: 8px;
+		outline: none;
+		border: 1px solid #ccc;
+	}
+	.search .search-btn{
+		width: 80px;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		outline: none;
+		border: none;
+		color: #fff;
+		background-color: #000;
+		cursor: pointer;
+	}
+	.search-layer{
+		position: absolute;
+		top: 40px;
+		left: 0px;
+		width: 100%;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		/*border-top: none;*/
+		box-sizing: border-box;
+		display: none;
+	}
+	.search-layer li{
+		height: 30px;
+		line-height: 30px;
+		padding-left: 10px;
+		box-sizing: border-box;
+		cursor: pointer;
+	}
+	.search-layer li:hover{
+		background-color: #f3f5f7;
+	}
+/*头部搜索结束*/
 
-.search{
-	width: 100%;
-	height: 150px;
-	background-color: pink;
-}
 
 .nav{
 	width: 100%;

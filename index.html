@@ -52,7 +52,7 @@
 							<li><a href="javascript:;" class="dropdown-show">体验中心</a></li>
 						</ul>
 					</li>
-					<li class="fr dropdown" data-active="menu">
+					<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
 						<a href="javascript:;" class="link dropdown-toggle">
 							商品分类
 						</a>
@@ -67,14 +67,15 @@
 							<li><a href="javascript:;" class="dropdown-show">收藏的店铺</a></li>
 						</ul>
 					</li>
-					<li class="fr dropdown" data-active="menu">
+					<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
 						<a href="javascript:;" class="link dropdown-toggle">
 							我的跨淘
 							<i class="fa fa-angle-down rotate transition" aria-hidden="true"></i>
 						</a>
 						<ul class="dropdown-layer dropdown-left">
-							<li><a href="javascript:;" class="dropdown-show">已加入的宝贝</a></li>
-							<li><a href="javascript:;" class="dropdown-show">我的足迹</a></li>
+							<!-- <li><a href="javascript:;" class="dropdown-show">已加入的宝贝</a></li>
+							<li><a href="javascript:;" class="dropdown-show">我的足迹</a></li> -->
+							<div class="dropdown-loading"></div>
 						</ul>
 					</li>
 					
@@ -84,13 +85,28 @@
 	<!-- 顶部导航栏结束 -->
 
 
-	<!-- 搜索框开始 -->
-		<section class="search">
+	<!-- 头部搜索开始 -->
+		<section class="header">
 			<div class="container">
-				
+				<h1 class="fl">
+					<a href="#" class="header-logo"></a>
+				</h1>
+				<div class="search fl">
+					<form action="https://s.taobao.com/search" class="search-form">
+						<input type="text" class="search-input fl" autocomplete="off" name="q">
+						<input type="submit" class="search-btn fl">
+					</form>
+					<ul class="search-layer">
+						<li>保温杯</li>
+						<li>保温杯</li>
+						<li>保温杯</li>
+						<li>保温杯</li>
+						<li>保温杯</li>
+					</ul>
+				</div>
 			</div>
 		</section>
-	<!-- 搜索框结束 -->
+	<!-- 头部搜索结束 -->
 
 
 	<!-- 商品分类开始 -->
@@ -158,6 +174,7 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/showhide.js"></script>
 <script src="js/dropdown.js"></script>
+<script src="js/search.js"></script>
 <script src="js/index.js"></script>
 
 </html>
