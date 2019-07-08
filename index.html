@@ -10,177 +10,351 @@
 	<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-	<!-- 顶部导航栏开始 -->
-		<header class="top">
-			<div class="container">
-				<ul class="top-left fl">
-					<li class="fl">
-						<a href="javascript:;" class="link default">亲,请登录</a>
-					</li>
-					<li class="fl">
-						<a href="javascript:;" class="link">免费注册</a>
-					</li>
-					<li class="fl">
-						<a href="javascript:;" class="link">手机逛淘宝</a>
-					</li>
-				</ul>
-				<ul class="top-right fr">
-					<li class="fr dropdown" data-active="menu">
-						<a href="javascript:;" class="link dropdown-toggle">
-							<i class="fa fa-bars transition" aria-hidden="true"></i>
-							网站导航
-						</a>
-						<ul class="dropdown-layer dropdown-right">
-							<li><a href="javascript:;" class="dropdown-show">男装</a></li>
-							<li><a href="javascript:;" class="dropdown-show">女装</a></li>
-							<li><a href="javascript:;" class="dropdown-show">阿里巴巴认证</a></li>
-							<li><a href="javascript:;" class="dropdown-show">阿里商务</a></li>
-							<li><a href="javascript:;" class="dropdown-show">飞猪</a></li>
-							<li><a href="javascript:;" class="dropdown-show">聚划算</a></li>
-						</ul>
-					</li>
-					<li class="fr dropdown" data-active="menu">
-						<a href="javascript:;" class="link dropdown-toggle">
-							卖家中心
-							<i class="fa fa-user  transition" aria-hidden="true"></i>
-						</a>
-						<ul class="dropdown-layer dropdown-left">
-							<li><a href="javascript:;" class="dropdown-show">免费开店</a></li>
-							<li><a href="javascript:;" class="dropdown-show">已卖出的宝贝</a></li>
-							<li><a href="javascript:;" class="dropdown-show">销售中的宝贝</a></li>
-							<li><a href="javascript:;" class="dropdown-show">卖家服务市场</a></li>
-							<li><a href="javascript:;" class="dropdown-show">体验中心</a></li>
-						</ul>
-					</li>
-					<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
-						<a href="javascript:;" class="link dropdown-toggle">
-							商品分类
-						</a>
-					</li>
-					<li class="fr dropdown" data-active="menu">
-						<a href="javascript:;" class="link dropdown-toggle">
-							收藏夹
-							<i class="fa fa-star rotate transition" aria-hidden="true"></i>
-						</a>
-						<ul class="dropdown-layer dropdown-left">
-							<li><a href="javascript:;" class="dropdown-show">收藏的宝贝</a></li>
-							<li><a href="javascript:;" class="dropdown-show">收藏的店铺</a></li>
-						</ul>
-					</li>
-
-					<!-- 用data存值的方式来存储将要加载的地址 -->
-					<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
-						<a href="javascript:;" class="link dropdown-toggle">
-							我的跨淘
-							<i class="fa fa-angle-down rotate transition" aria-hidden="true"></i>
-						</a>
-						<ul class="dropdown-layer dropdown-left">
-							<!-- <li><a href="javascript:;" class="dropdown-show">已加入的宝贝</a></li>
-							<li><a href="javascript:;" class="dropdown-show">我的足迹</a></li> -->
-							<div class="dropdown-loading"></div>
-						</ul>
-					</li>
-					
-				</ul>
-			</div>
-		</header>
-	<!-- 顶部导航栏结束 -->
-
-
-	<!-- 头部搜索开始 -->
-		<section class="header">
-			<div class="container">
-				<h1 class="fl">
-					<a href="#" class="header-logo"></a>
-				</h1>
-				<div class="search fl clearfix">
-					<!-- 需要提交数据的地址 -->
-					<!-- "https://s.taobao.com/search" -->
-					<form action="https://s.taobao.com/search" class="search-form">
-						<!-- 给输入框名字name="q"用来接收数据 -->
-						<input type="text" class="search-input fl" 
-						autocomplete="off" name="q">
-						<input type="submit" class="search-btn fl">
-					</form>
-					<ul class="search-layer">
-						<!-- <li>保温杯</li>
-						<li>保温杯</li>
-						<li>保温杯</li>
-						<li>保温杯</li>
-						<li>保温杯</li> -->
+<!-- 顶部导航栏开始 -->
+	<header class="top">
+		<div class="container">
+			<ul class="top-left fl">
+				<li class="fl">
+					<a href="javascript:;" class="link default">亲,请登录</a>
+				</li>
+				<li class="fl">
+					<a href="javascript:;" class="link">免费注册</a>
+				</li>
+				<li class="fl">
+					<a href="javascript:;" class="link">手机逛淘宝</a>
+				</li>
+			</ul>
+			<ul class="top-right fr">
+				<li class="fr dropdown" data-active="menu">
+					<a href="javascript:;" class="link dropdown-toggle">
+						<i class="fa fa-bars transition" aria-hidden="true"></i>
+						网站导航
+					</a>
+					<ul class="dropdown-layer dropdown-right">
+						<li><a href="javascript:;" class="dropdown-show">男装</a></li>
+						<li><a href="javascript:;" class="dropdown-show">女装</a></li>
+						<li><a href="javascript:;" class="dropdown-show">阿里巴巴认证</a></li>
+						<li><a href="javascript:;" class="dropdown-show">阿里商务</a></li>
+						<li><a href="javascript:;" class="dropdown-show">飞猪</a></li>
+						<li><a href="javascript:;" class="dropdown-show">聚划算</a></li>
 					</ul>
-				</div>
-			</div>
-		</section>
-	<!-- 头部搜索结束 -->
+				</li>
+				<li class="fr dropdown" data-active="menu">
+					<a href="javascript:;" class="link dropdown-toggle">
+						卖家中心
+						<i class="fa fa-user  transition" aria-hidden="true"></i>
+					</a>
+					<ul class="dropdown-layer dropdown-left">
+						<li><a href="javascript:;" class="dropdown-show">免费开店</a></li>
+						<li><a href="javascript:;" class="dropdown-show">已卖出的宝贝</a></li>
+						<li><a href="javascript:;" class="dropdown-show">销售中的宝贝</a></li>
+						<li><a href="javascript:;" class="dropdown-show">卖家服务市场</a></li>
+						<li><a href="javascript:;" class="dropdown-show">体验中心</a></li>
+					</ul>
+				</li>
+				<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
+					<a href="javascript:;" class="link dropdown-toggle">
+						商品分类
+					</a>
+				</li>
+				<li class="fr dropdown" data-active="menu">
+					<a href="javascript:;" class="link dropdown-toggle">
+						收藏夹
+						<i class="fa fa-star rotate transition" aria-hidden="true"></i>
+					</a>
+					<ul class="dropdown-layer dropdown-left">
+						<li><a href="javascript:;" class="dropdown-show">收藏的宝贝</a></li>
+						<li><a href="javascript:;" class="dropdown-show">收藏的店铺</a></li>
+					</ul>
+				</li>
 
-
-	<!-- 商品分类开始 -->
-		<nav class="nav">
-			<div class="container">
+				<!-- 用data存值的方式来存储将要加载的地址 -->
+				<li class="fr dropdown" data-active="menu" data-load="data/top/mygoods.json">
+					<a href="javascript:;" class="link dropdown-toggle">
+						我的跨淘
+						<i class="fa fa-angle-down rotate transition" aria-hidden="true"></i>
+					</a>
+					<ul class="dropdown-layer dropdown-left">
+						<!-- <li><a href="javascript:;" class="dropdown-show">已加入的宝贝</a></li>
+						<li><a href="javascript:;" class="dropdown-show">我的足迹</a></li> -->
+						<div class="dropdown-loading"></div>
+					</ul>
+				</li>
 				
+			</ul>
+		</div>
+	</header>
+<!-- 顶部导航栏结束 -->
+
+
+<!-- 头部搜索开始 -->
+	<section class="header">
+		<div class="container">
+			<h1 class="fl">
+				<a href="#" class="header-logo"></a>
+			</h1>
+			<div class="search fl clearfix">
+				<!-- 需要提交数据的地址 -->
+				<!-- "https://s.taobao.com/search" -->
+				<form action="https://s.taobao.com/search" class="search-form">
+					<!-- 给输入框名字name="q"用来接收数据 -->
+					<input type="text" class="search-input fl" 
+					autocomplete="off" name="q">
+					<input type="submit" class="search-btn fl">
+				</form>
+				<ul class="search-layer">
+					<!-- <li>保温杯</li>
+					<li>保温杯</li>
+					<li>保温杯</li>
+					<li>保温杯</li>
+					<li>保温杯</li> -->
+				</ul>
 			</div>
-		</nav>
-	<!-- 商品分类结束 -->
+		</div>
+	</section>
+<!-- 头部搜索结束 -->
 
 
-	<!-- 商品内容区域开始 -->
-		<article class="content">
-			<div class="container">
-				
+<!-- 商品分类开始 -->
+	<div class="nav-main">
+		<div class="container">
+			<ul>
+				<li class="nav-main-item"><a class="link" href="#">秒杀</a></li>
+				<li class="nav-main-item"><a class="link" href="#">拍卖</a></li>
+				<li class="nav-main-item"><a class="link" href="#">京东服饰</a></li>
+				<li class="nav-main-item"><a class="link" href="#">京东超市</a></li>
+				<li class="nav-main-item"><a class="link" href="#">生鲜</a></li>
+				<li class="nav-main-item"><a class="link" href="#">京东金融</a></li>
+			</ul>
+		</div>
+	</div>
+<!-- 商品分类结束 -->
+
+
+<!-- 焦点区域开始 -->
+	<div class="focus">
+		<div class="container">
+			<div class="category fl">
+				<a href="#" class="category-title">
+					<i class="fas icon">&#xf00a;</i>全部分类
+				</a>
+				<ul class="category-list">
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-2.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">手机、运营商、数码</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>	
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>				
+					<li class="dropdown" data-active="category" data-load="data/category/category-detail-1.json">
+						<div class="dropdown-toggle">
+							<a href="javascript:;" class="dropdown-link">家用电器</a>
+							<i class="dropdown-icon">&gt;</i>
+						</div>
+						<div class="dropdown-layer">
+							<div class="dropdown-loading"></div>
+						</div>
+					</li>
+				</ul>
 			</div>
-		</article>
-	<!-- 商品内容区域结束 -->
-
-
-	<!-- 楼层一开始 -->
-		<article class="floor">
-			<div class="container">
-				
+			<div class="carousel fl">
+				<div class="carousel-wrap">
+					<ul class="imgs">
+						<li class="carousel-item">
+							<a href="#">
+								<img class="carousel-img" src="images/focus-carousel/1.png" alt="">
+							</a>
+						</li>
+						<li class="carousel-item">
+							<a href="#">
+								<img class="carousel-img" src="images/focus-carousel/2.png" alt="">
+							</a>
+						</li>
+						<li class="carousel-item">
+							<a href="#">
+								<img class="carousel-img" src="images/focus-carousel/3.png" alt="">
+							</a>
+						</li>
+						<li class="carousel-item">
+							<a href="#">
+								<img class="carousel-img" src="images/focus-carousel/4.png" alt="">
+							</a>
+						</li>															
+					</ul>
+					<ul class="btns">
+						<li class="btn-item"></li>
+						<li class="btn-item"></li>
+						<li class="btn-item"></li>
+						<li class="btn-item"></li>
+					</ul>
+					<span class="control control-left">&lt;</span>
+					<span class="control control-right">&gt;</span>
+				</div>			
 			</div>
-		</article>
-	<!-- 楼层一结束 -->
+			<div class="sidebar fr"></div>
+		</div>
+	</div>
+<!-- 焦点区域结束 -->
 
 
-	<!-- 楼层二开始 -->
-		<article class="floor">
-			<div class="container">
-				
-			</div>
-		</article>
-	<!-- 楼层二结束 -->
+<!-- 楼层一开始 -->
+	<article class="floor">
+		<div class="container">
+			
+		</div>
+	</article>
+<!-- 楼层一结束 -->
 
 
-	<!-- 楼层三开始 -->
-		<article class="floor">
-			<div class="container">
-				
-			</div>
-		</article>
-	<!-- 楼层三结束 -->
+<!-- 楼层二开始 -->
+	<article class="floor">
+		<div class="container">
+			
+		</div>
+	</article>
+<!-- 楼层二结束 -->
 
 
-	<!-- 楼层四开始 -->
-		<article class="floor">
-			<div class="container">
-				
-			</div>
-		</article>
-	<!-- 楼层四结束 -->
+<!-- 楼层三开始 -->
+	<article class="floor">
+		<div class="container">
+			
+		</div>
+	</article>
+<!-- 楼层三结束 -->
 
 
-	<!-- 楼层五开始 -->
-		<article class="floor">
-			<div class="container">
-				
-			</div>
-		</article>
-	<!-- 楼层五结束 -->
+<!-- 楼层四开始 -->
+	<article class="floor">
+		<div class="container">
+			
+		</div>
+	</article>
+<!-- 楼层四结束 -->
+
+
+<!-- 楼层五开始 -->
+	<article class="floor">
+		<div class="container">
+			
+		</div>
+	</article>
+<!-- 楼层五结束 -->
 </body>
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/showhide.js"></script>
 <script src="js/dropdown.js"></script>
-<script src="js/search1.js"></script>
+<script src="js/search.js"></script>
+<script src="js/coursel.js"></script>
 <script src="js/index.js"></script>
-
 </html>
