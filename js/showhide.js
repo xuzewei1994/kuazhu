@@ -190,26 +190,34 @@
 		mode:'fade'
 	}
 
-	//封装showHide插件
+	/*封装showHide插件*/
 	$.fn.extend({
-		//接收showHide传入的参数
+		//接收showHide传入的参数(options)
 		showHide:function(options){
-			//遍历元素,实现隐式迭代
+
+			/*1.遍历元素,实现隐式迭代*/
 			//返回jQuery对象实现链式调用
-			return this.each(function(){//实现单例模式
-				/*获取DOM节点*/
+			return this.each(function(){
+
+				/*2.获取DOM节点*/
 				var $elem = $(this);
-				/*获取动画的执行方法*/
-				/*将获取到的信息存储到data上*/
+
+				/*3.获取动画的执行方法//实现单例模式*/
+				//将获取到的信息存储到data上
 				var showHideObj = $elem.data('showHideObj');
+				//如果data上没有showHideObj
 				if(!showHideObj){
-				/* $.extend({},obj1, obj2);
-				合并 obj1 和 obj2,返回合并后的对象,不修改obj1*/
+
+					//如果不传参数用默认信息(DEFAULTS)
+					//如果传参数用配置信息
 					options = $.extend({},DEFAULTS,options);
+					//用showHideObj存储获取到的方法
 					showHideObj = getShowHide($elem,options);
+
 					/*存储到当前DOM节点*/
 					$elem.data('showHideObj',showHideObj);
 				}
+				
 				//第二次进入该函数则是调用显示隐藏的动画方法
 				if(typeof showHideObj[options] == 'function'){
 					showHideObj[options]($elem)

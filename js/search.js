@@ -1,5 +1,20 @@
 (function($){
 
+//缓存数据
+var cache = {
+	data:{},
+	count:0,
+	addData:function(key,val){
+		this.data[key] = val;
+		this.count++;
+	},
+	getData:function(key){
+		return this.data[key];
+	}
+}
+
+
+
 function Search($elem,options){
 	//1.罗列属性
 	this.$elem = $elem;
@@ -8,7 +23,9 @@ function Search($elem,options){
 	this.$searchBtn = this.$elem.find('.search-btn');
 	this.$searchLayer = this.$elem.find('.search-layer');
 	this.$searchForm = this.$elem.find('.search-form');
+
 	this.timer = 0;
+	this.jqXHR = null;
 	
 	//判断html是否被加载
 	this.isLoadedHtml = false;
@@ -45,7 +62,7 @@ Search.prototype = {
 				clearTimeout(this.timer);
 				//设置延迟定时器防止频繁获取不需要的数据
 				this.timer = setTimeout(function(){
-					this.getData();
+					this.getData();		
 				}.bind(this),this.options.delayGetData);
 			}.bind(this));
 		}else{
@@ -65,11 +82,11 @@ Search.prototype = {
 		//5.点击输入框按钮是阻止事件冒泡
 		this.$searchInput.on('click',function(ev){
 			ev.stopPropagation();
-		})
+		});
 		//6.(事件委托)完成点击下拉列表每一项提交数据
 		var _this = this;
-		this.$elem.on('click','.search-itme',function(){
-			//1.获取点击项的内容
+		this.$elem.on('click','.search-item',function(){
+			//1.获取点击的项的内容
 			var val = $(this).html();
 			//2.设置输入框的值
 			_this.setInputVal(val);
@@ -84,17 +101,38 @@ Search.prototype = {
 			this.hideLayer();
 			return;
 		}
-		$.ajax({
+
+		//获取最新数据
+		if(this.jqXHR){
+			this.jqXHR.abort();
+		}
+
+		//每一次发送请求前在查询是否有缓存
+		if(cache.getData(this.getInputVal())){
+			var cacheData = cache.getData(this.getInputVal())
+			console.log("cache::::",cacheData);
+			this.$elem.trigger('getData',cacheData);
+			return;
+		}
+
+		console.log("will trigger data ....");
+
+		this.jqXHR = $.ajax({
 			url:this.options.url + this.getInputVal(),
 			dataType:'jsonp',
 			jsonp:'callback'
 		})
 		.done(function(data){
 			this.$elem.trigger('getData',data);
+			//将数据缓存起来
+			cache.addData(this.getInputVal(),data);
 		}.bind(this))
 		.fail(function(err){
 			this.$elem.trigger('getNoData');
-		}.bind(this));
+		}.bind(this))
+		.always(function(){
+			this.jqXHR = null;
+		}.bind(this))
 	},
 	appendHTML:function(html){
 		this.$searchLayer.html(html);
@@ -107,7 +145,7 @@ Search.prototype = {
 	hideLayer:function(){
 		this.$searchLayer.showHide('hide');
 	},
-	setInputVal:function(){
+	setInputVal:function(val){
 		this.$searchInput.val(val);
 	}
 }
@@ -118,7 +156,7 @@ Search.DEFAULTS = {
 	url:'https://suggest.taobao.com/sug?q=',
 	js:true,
 	mode:'slide',
-	delayGetData:200
+	delayGetData:500
 }
 
 //封装dropdown插件
@@ -141,4 +179,6 @@ $.fn.extend({
 		})
 	}
 })
+
+
 })(jQuery);

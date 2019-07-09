@@ -58,11 +58,14 @@
 		dropdown:function(options){
 			//1.实现隐式迭代
 			this.each(function(){
+				
 				/*获取DOM节点*/
 				var $elem = $(this);
+
 				/* $.extend({},obj1, obj2);
 				合并 obj1 和 obj2,返回合并后的对象,不修改obj1*/
 				options = $.extend({},Dropdown.DEFAULTS,options);
+
 				/*Dropdown的实例对象才可以调用该方法*/
 				//$elem:当前的DOM节点  options:实现的动画效果
 				new Dropdown($elem,options)
