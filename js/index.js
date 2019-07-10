@@ -1,5 +1,31 @@
 
 (function($){
+/*共通函数开始*/
+	//1.只加载一次html
+	function loadHtmlOnce($elem,callback){
+		var url = $elem.data('load');
+		//如果没有地址则无需加载数据
+		if(!url) return;
+		//判断数据如果没有被加载则发送请求
+		if(!$elem.data('isLoaded')){
+			$.getJSON(url,function(data){
+				typeof callback == 'function' && callback($elem,data);
+			})
+		}
+	}
+	//2.加载图片
+	function loadImage(imgUrl,success,error){
+		var image = new Image();
+		image.onload = function(){
+			typeof success == 'function' && success(imgUrl);
+		}
+		image.onerror = function(){
+			typeof error == 'function' && error(imgUrl);
+		}
+		image.src = imgUrl;
+	}
+/*共通函数结束*/
+
 /*顶部导航逻辑开始*/
 	var $dropdown = $('.top .dropdown');
 	
@@ -157,6 +183,80 @@
 
 /*轮播图逻辑开始*/
 	var $coursel = $('.carousel .carousel-wrap');
+	var item = {};//0:loaded 1:loaded
+	var totalNum = $coursel.find('.carousel-img').length - 1;
+	var totalLoadedNum = 0;
+	var loadFn = null;
+	//1.开始加载
+	$coursel.on('coursel-show',loadFn = function(ev,index,elem){
+		//判断图片有没有被加载
+		if(!item[index]){
+			$coursel.trigger('coursel-load',[index,elem]);
+		}
+	})
+	//2.执行加载
+	$coursel.on('coursel-load',function(ev,index,elem){
+		console.log('will load img',index);
+		var $elem = $(elem);
+		var $img = $elem.find('.carousel-img');
+		var imgUrl = $img.data('src');
+		loadImage(imgUrl,function(){
+			$img.attr('src',imgUrl);
+		},function(){
+			$img.attr('src','images/focus-carousel/placeholder.png');
+		});
+		//图片已经被加载
+		item[index] = 'isLoaded';
+		totalLoadedNum++;
+		//所有图片都被加载则移除事件
+		if(totalLoadedNum > totalNum){
+			$coursel.trigger('coursel-loaded');
+		}
+	})
+	//3.加载完毕
+	$coursel.on('coursel-loaded',function(){
+		$coursel.off('coursel-show',loadFn);
+	})
 	$coursel.coursel({});
 /*轮播图逻辑结束*/
+
+/*今日热销逻辑开始*/
+	var $todaysCoursel = $('.todays .carousel-wrap');
+	var $coursel = $('.carousel .carousel-wrap');
+	$todaysCoursel.item = {};//0:loaded 1:loaded
+	$todaysCoursel.totalNum = $coursel.find('.carousel-img').length - 1;
+	$todaysCoursel.totalLoadedNum = 0;
+	$todaysCoursel.loadFn = null;
+	//1.开始加载
+	$coursel.on('coursel-show',$todaysCoursel.loadFn = function(ev,index,elem){
+		//判断图片有没有被加载
+		if(!$todaysCoursel.item[index]){
+			$coursel.trigger('coursel-load',[index,elem]);
+		}
+	})
+	//2.执行加载
+	$coursel.on('coursel-load',function(ev,index,elem){
+		console.log('will load img',index);
+		var $elem = $(elem);
+		var $img = $elem.find('.carousel-img');
+		var imgUrl = $img.data('src');
+		loadImage(imgUrl,function(){
+			$img.attr('src',imgUrl);
+		},function(){
+			$img.attr('src','images/focus-carousel/placeholder.png');
+		});
+		//图片已经被加载
+		$todaysCoursel.item[index] = 'isLoaded';
+		$todaysCoursel.totalLoadedNum++;
+		//所有图片都被加载则移除事件
+		if($todaysCoursel.totalLoadedNum > $todaysCoursel.totalNum){
+			$coursel.trigger('coursel-loaded');
+		}
+	})
+	//3.加载完毕
+	$coursel.on('coursel-loaded',function(){
+		$coursel.off('coursel-show',$todaysCoursel.loadFn);
+	})
+	$todaysCoursel.coursel({});
+/*今日热销逻辑结束*/
 })(jQuery);

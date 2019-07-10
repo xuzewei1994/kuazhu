@@ -17,74 +17,64 @@ function Coursel($elem,options){
 Coursel.prototype = {
 	constructor:Coursel,
 	init:function(){
-		var _this = this;
-		//图片加载默认显示的图片
-		this.$elem.trigger('coursel-show',[this.now,this.$courselItems.eq(this.now)]);
-		/*划入划出*/
-		if(this.options.slide){
+		if(this.options.slide){//划入划出
 			//1.移走所有图片,显示默认图片
 			this.$elem.addClass('slide');
 			this.$courselItems.eq(this.now).css({left:0});
 			//2.记录当前容器的宽度
 			this.itemWidth = this.$courselItems.eq(this.now).width();
+			//3.底部按钮默认选中
+			this.$courselBtns.eq(this.now).addClass('active');
+			//4.监听鼠标移入移除显示隐藏左右按钮事件
+			this.$elem.hover(function(){
+				this.$courselControls.show();
+			}.bind(this),function(){
+				this.$courselControls.hide();
+			}.bind(this));
 			//5.初始化移动插件
 			this.$courselItems.move(this.options);
-			//6.(事件代理)监听点击左右划入划出图片事件
-			//监听划入划出事件
-			this.$courselItems.on('move moved',function(ev){
-				var index = _this.$courselItems.index(this);
-				if(_this.now != index){
-					_this.$elem.trigger('coursel-show',[index,this]);
-				}
-			})
-			this._tab = this._toggle;
-
-		/*淡入淡出*/
-		}else{
+			//6.(事件代理)监听点击左右划入画出图片事件
+			this.$elem.on('click','.control-left',function(){
+				this._toggle(this._getCorrectIndex(this.now-1),-1);
+			}.bind(this));
+			this.$elem.on('click','.control-right',function(){
+				this._toggle(this._getCorrectIndex(this.now+1),1);
+			}.bind(this));
+		}else{//淡入淡出
 			//1.隐藏所有图片,显示默认图片
 			this.$elem.addClass('fade');
 			this.$courselItems.eq(this.now).show();
-			//4.初始化显示隐藏插件
+			//2.底部按钮默认选中
+			this.$courselBtns.eq(this.now).addClass('active');
+			//3.监听鼠标移入移除显示隐藏左右按钮事件
+			this.$elem.hover(function(){
+				this.$courselControls.show();
+			}.bind(this),function(){
+				this.$courselControls.hide();
+			}.bind(this));
+			//初始化显示隐藏插件
 			this.$courselItems.showHide(this.options);
-			//5.(事件代理)监听点击左右显示隐藏图片事件
-			//监听划入划出事件
-			this.$courselItems.on('show',function(ev){
-				var index = _this.$courselItems.index(this);
-					_this.$elem.trigger('coursel-show',[index,this]);
-			})
-			this._tab = this._fade;
-			//8.监听底部按钮事件
+			//4.(事件代理)监听点击左右显示隐藏图片事件
+			this.$elem.on('click','.control-left',function(){
+				this._fade(this._getCorrectIndex(this.now-1));
+			}.bind(this));
+			this.$elem.on('click','.control-right',function(){
+				this._fade(this._getCorrectIndex(this.now+1));
+			}.bind(this));
+			//5.是否自动轮播
+			if(this.options.autoplay){
+				this.autoplay();
+				//6.鼠标移入移出开始停止轮播
+				this.$elem.hover($.proxy(this.paused,this),$.proxy(this.autoplay,this));
+			}
+			//7.监听底部按钮事件
+			var _this = this;
+			this.$courselBtns.on('click',function(){
+				//获取当前索引值
+				var index = _this.$courselBtns.index(this);
+				_this._fade(index);
+			});
 		}
-
-		/*共通函数开始*/
-		//1.底部按钮默认选中
-		this.$courselBtns.eq(this.now).addClass('active');
-		//2.监听鼠标移入移除显示隐藏左右按钮事件
-		this.$elem.hover(function(){
-			this.$courselControls.show();
-		}.bind(this),function(){
-			this.$courselControls.hide();
-		}.bind(this));
-		//3.(事件代理)监听点击左右划入划出图片事件
-		this.$elem.on('click','.control-left',function(){
-			this._tab(this._getCorrectIndex(this.now-1),-1);
-		}.bind(this));
-		this.$elem.on('click','.control-right',function(){
-			this._tab(this._getCorrectIndex(this.now+1),1);
-		}.bind(this));
-		//4.是否自动轮播
-		if(this.options.autoplay){
-			this.autoplay();
-			//5.鼠标移入移出开始停止轮播
-			this.$elem.hover($.proxy(this.paused,this),$.proxy(this.autoplay,this));
-		}
-		//6.监听底部按钮事件
-		this.$courselBtns.on('click',function(){
-			//获取当前索引值
-			var index = _this.$courselBtns.index(this);
-			_this._tab(index);
-		});
-		/*共通函数结束*/
 	},
 	_fade:function(index){
 		//index代表将要显示的图片
@@ -101,21 +91,14 @@ Coursel.prototype = {
 	_toggle:function(index,direction){
 		//index代表将要显示的图片
 		//direction:1表示正方向 -1表示负方向
-		if(index > this.now){
-			direction = 1;
-		}else{
-			direction = -1;
-		}
-		//1.把将要显示的图片放到指定位置
-		this.$courselItems.eq(index).css({left:direction*this.itemWidth});
-		//2.移走当前
+		//1.移走当前
 		this.$courselItems.eq(this.now).move('x',-1*direction*this.itemWidth);
-		//3.移入将要显示的
+		//2.移入将要显示的
 		this.$courselItems.eq(index).move('x',0);
-		//4.底部按钮更新
+		//3.底部按钮更新
 		this.$courselBtns.eq(this.now).removeClass('active');
 		this.$courselBtns.eq(index).addClass('active');
-		//5.更新索引值
+		//4.更新索引值
 		this.now = index;
 	},
 	_getCorrectIndex:function(num){
@@ -143,7 +126,7 @@ Coursel.DEFAULTS = {
 	autoplay:0
 }
 
-//封装coursel插件
+//封装dropdown插件
 $.fn.extend({
 	coursel:function(options){
 		//1.实现隐式迭代
@@ -163,4 +146,6 @@ $.fn.extend({
 		})
 	}
 })
+
+
 })(jQuery);
