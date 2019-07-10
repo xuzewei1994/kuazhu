@@ -13,7 +13,10 @@
 	function show($elem,callback){
 		if($elem.data('status') == 'show') return;
 		if($elem.data('status') == 'shown') return;
+
+		//显示之前监听事件
 		$elem.trigger('show').data('status','show');
+
 		typeof callback == 'function' && callback();
 	}
 	function hide($elem,callback){
@@ -30,6 +33,7 @@
 		show:function($elem){
 			show($elem,function(){
 				$elem.show();
+
 				$elem.trigger('shown').data('status','shown');
 			})
 		},
