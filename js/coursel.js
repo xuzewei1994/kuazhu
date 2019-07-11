@@ -8,7 +8,7 @@ function Coursel($elem,options){
 	this.$courselBtns = this.$elem.find('.btn-item');
 	this.$courselControls = this.$elem.find('.control');
 	this.timer = 0;
-	this.now = this.options.activeIndex;
+	this.now = this._getCorrectIndex(this.options.activeIndex);
 	this.itemLength = this.$courselItems.length;
 	
 	//2.初始化
