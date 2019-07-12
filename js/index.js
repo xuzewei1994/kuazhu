@@ -338,12 +338,18 @@
 	}
 
 	var $floor = $('.floor');
+
+	//获取window
 	var $win = $(window);
+
+	//获取document
 	var $doc = $(document);
 
 	//判断楼层是否在可视区
 	function isVisible($elem){
+		//楼层在可视区下面:可视区高度+滚动高度 > 楼层距离顶部的高度
 		return ($win.height() + $win.scrollTop() > $elem.offset().top) 
+		//楼层在可视区上面:楼层距离顶部的高度+楼层高度 > 滚动高度
 		&& ($elem.offset().top + $elem.height() > $win.scrollTop())
 	};
 
